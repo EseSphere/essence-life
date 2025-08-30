@@ -170,7 +170,7 @@
                     <p>Your password has been updated successfully!</p>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <a href="login.html" class="btn btn-success">Go to Login</a>
+                    <a href="login.php" class="btn btn-success">Go to Login</a>
                 </div>
             </div>
         </div>

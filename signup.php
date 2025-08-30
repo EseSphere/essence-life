@@ -138,7 +138,7 @@
                 <button type="submit" class="btn-signup">Sign Up</button>
             </form>
             <div class="login-link">
-                <p>Already have an account? <a href="login.html">Log in</a></p>
+                <p>Already have an account? <a href="login.php">Log in</a></p>
             </div>
         </div>
     </div>

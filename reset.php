@@ -136,7 +136,7 @@
                 <button type="submit" class="btn-reset">Send Reset Link</button>
             </form>
             <div class="extra-links">
-                <p><a href="login.html">Back to Log In</a></p>
+                <p><a href="login.php">Back to Log In</a></p>
             </div>
         </div>
     </div>
