@@ -85,7 +85,7 @@
 <body>
   <div class="container-fluid" id="splash-screen">
     <div id="splash-logo img-logo">
-      <img id="geosoft-logo" src="./images/logo/logo-transparent.png" alt="Geosoft Care Logo" style="width: 200px; height: 170px;">
+      <img id="geosoft-logo" src="./images/logo/logo-transparent.png" alt="Geosoft Care Logo" style="width: 250px; height: 250px;">
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
