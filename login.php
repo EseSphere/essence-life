@@ -136,7 +136,7 @@
                 <button type="submit" class="btn-login">Log In</button>
             </form>
             <div class="extra-links">
-                <p><a href="reset.html">Forgot Password?</a></p>
+                <p><a href="reset.php">Forgot Password?</a></p>
                 <p>Don’t have an account? <a href="signup.php">Sign up</a></p>
             </div>
         </div>

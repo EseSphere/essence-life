@@ -5,238 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Essence – Calm, Meditate & Relax</title>
-
-    <meta name="description"
-        content="Essence helps you find peace and relaxation with guided meditations, sleep stories, calming music, and mindfulness exercises.">
-    <meta name="keywords"
-        content="Essence app, meditation, mindfulness, sleep stories, calming music, relaxation, stress relief, wellness">
-    <meta name="author" content="Essence Team">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Essence – Calm, Meditate & Relax">
-    <meta property="og:description"
-        content="Discover inner calm with Essence. Guided meditations, soothing music, and sleep stories to improve focus and relaxation.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.essenceapp.com">
-    <meta property="og:image" content="https://www.essenceapp.com/assets/images/essence-preview.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Essence – Calm, Meditate & Relax">
-    <meta name="twitter:description"
-        content="Relax, sleep better, and focus with Essence. Guided meditations, calming music, and sleep stories.">
-    <meta name="twitter:image" content="https://www.essenceapp.com/assets/images/essence-preview.jpg">
-
+    <link rel="stylesheet" href="./css/style2.css">
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            scroll-behavior: smooth;
-        }
-
-        .navbar {
-            background: rgba(0, 0, 0, 0.8);
-        }
-
-        .navbar-brand,
-        .nav-link {
-            color: #fff !important;
-            font-weight: 500;
-        }
-
-        .navbar-brand:hover,
-        .nav-link:hover {
-            color: #198754 !important;
-        }
-
-        .wrapper {
-            position: relative;
-            min-height: 100vh;
-            background: linear-gradient(-45deg, #0d6efd, #198754, #6c757d, #000000);
-            background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
-            overflow: hidden;
-        }
-
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .particle {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 50%;
-            pointer-events: none;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Header */
-        .app-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            position: relative;
-            color: #fff;
-        }
-
-        .app-header img {
-            position: absolute;
-            left: 20px;
-            height: 40px;
-        }
-
-        .app-header h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-        }
-
-        /* Questionnaire */
-        #questionnaire h2 {
-            font-weight: 700;
-        }
-
-        #questionnaire .btn-outline-primary {
-            border: none;
-            border-radius: 15px;
-            padding: 15px 20px;
-            font-weight: 500;
-            font-size: 1rem;
-            color: #000;
-            background-color: #fff;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        #questionnaire .btn-outline-primary:hover {
-            background: linear-gradient(135deg, #198754, #0d6efd);
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        #questionnaire .btn-check:checked+.btn-outline-primary {
-            background: linear-gradient(135deg, #198754, #0d6efd);
-            color: #fff;
-            transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        #questionnaire .btn-outline-primary i {
-            font-size: 1.2rem;
-        }
-
-        /* Continue & Skip buttons */
-        .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 22px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 500;
-            border: none;
-            transition: all 0.3s ease;
-            width: 100%;
-            max-width: 420px;
-        }
-
-        #submitQuestionnaire {
-            background: linear-gradient(135deg, #0d6efd, #198754);
-            color: #fff;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-        }
-
-        #submitQuestionnaire:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
-        }
-
-        #skipQuestionnaire {
-            background: #f1f2f6;
-            color: #2f3542;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        #skipQuestionnaire:hover {
-            background: #dfe4ea;
-            transform: translateY(-3px);
-        }
-
-        /* Bottom Navbar */
-        .navbar-bottom {
-            background: rgba(0, 0, 0, 0.9);
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .navbar-bottom .nav-link {
-            color: #fff !important;
-            font-size: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-        }
-
-        .navbar-bottom .nav-link i {
-            font-size: 1.2rem;
-        }
-
-        .navbar-bottom .nav-link:hover {
-            color: #198754 !important;
-        }
-
-        footer {
-            background: #000;
-            color: #bbb;
-            padding: 50px 0 80px;
-            text-align: center;
-        }
-
-        footer a {
-            color: #0d6efd;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: #198754;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- Header with logo & app name -->
-
     <!-- Hero Wrapper -->
     <div class="wrapper" id="hero">
         <div class="particle"></div>
@@ -245,7 +22,7 @@
         <div class="particle"></div>
         <div class="particle"></div>
 
-        <!-- Questionnaire -->
+        <!-- Header -->
         <section class="hero" id="questionnaire">
             <div style="box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;" class="app-header mb-3">
                 <img src="https://cdn-icons-png.flaticon.com/512/891/891419.png" alt="Essence Logo">
@@ -253,7 +30,69 @@
             </div>
 
             <div class="container-fluid text-center">
-                asdasdf
+                <div class="container mt-4">
+                    <h2 class="text-center fw-bold">🎶 Explore Categories</h2>
+
+                    <!-- Search -->
+                    <div class="row justify-content-center mt-3">
+                        <div class="col-md-6">
+                            <input type="text" id="searchBar" class="form-control form-control-lg"
+                                placeholder="🔍 Search for a song...">
+                        </div>
+                    </div>
+
+                    <!-- Music Category -->
+                    <div id="categoriesContainer">
+                        <div class="category-row">
+                            <div class="category-title">Music</div>
+                            <div class="slider">
+                                <div class="song-item"
+                                    data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                                    data-title="Acoustic Sunrise"
+                                    data-img="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=400">
+                                    <img src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=400">
+                                    <p>Acoustic Sunrise</p>
+                                </div>
+                                <div class="song-item"
+                                    data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+                                    data-title="City Nights"
+                                    data-img="https://imageio.forbes.com/specials-images/imageserve/66a26836115f811da8d2554e/Dubai-marina-at-night/960x0.jpg?height=474&width=711&fit=bounds">
+                                    <img
+                                        src="https://imageio.forbes.com/specials-images/imageserve/66a26836115f811da8d2554e/Dubai-marina-at-night/960x0.jpg?height=474&width=711&fit=bounds">
+                                    <p>City Nights</p>
+                                </div>
+                                <div class="song-item"
+                                    data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+                                    data-title="Ocean Waves"
+                                    data-img="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400">
+                                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400">
+                                    <p>Ocean Waves</p>
+                                </div>
+                                <div class="song-item"
+                                    data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+                                    data-title="Mountain Echoes"
+                                    data-img="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400">
+                                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400">
+                                    <p>Mountain Echoes</p>
+                                </div>
+                                <div class="song-item"
+                                    data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+                                    data-title="Calm Breeze"
+                                    data-img="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400">
+                                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400">
+                                    <p>Calm Breeze</p>
+                                </div>
+                                <div class="song-item"
+                                    data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+                                    data-title="Evening Jazz"
+                                    data-img="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400">
+                                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400">
+                                    <p>Evening Jazz</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -269,6 +108,38 @@
         </div>
     </nav>
 
+    <!-- Modal Player -->
+    <div id="playerModal"
+        style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:none;justify-content:center;align-items:center;z-index:1000;padding:10px;">
+        <div
+            style="background:#1e1e1e;padding:15px;border-radius:12px;text-align:center;max-width:400px;width:100%;height:auto;display:flex;flex-direction:column;justify-content:center;">
+            <h2 id="modalTitle" style="color:white;font-size:1.3rem;margin-bottom:10px;"></h2>
+            <img id="modalImg" src=""
+                style="width:100%;height:auto;max-height:300px;object-fit:cover;border-radius:12px;margin-bottom:10px;">
+            <audio id="modalAudio" controls autoplay style="width:100%;margin-bottom:10px;"></audio>
+            <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+                <button id="prevSong" class="btn btn-primary flex-fill">⏮ Previous</button>
+                <button id="closeModal" class="btn btn-danger flex-fill">Close</button>
+                <button id="nextSong" class="btn btn-primary flex-fill">Next ⏭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Persistent Mini Player -->
+    <div id="miniPlayer"
+        style="position:fixed;bottom:0;left:0;width:100%;background:#1e1e1e;display:flex;align-items:center;justify-content:space-between;padding:5px 10px;z-index:999;display:none;">
+        <div style="display:flex;align-items:center;">
+            <img id="miniCover" src="" style="width:50px;height:50px;border-radius:8px;object-fit:cover;">
+            <p id="miniTitle" style="margin-left:10px;color:white;"></p>
+        </div>
+        <div>
+            <button id="miniPrev" class="btn btn-primary">⏮️</button>
+            <button id="miniPlayPause" class="btn btn-success">▶️</button>
+            <button id="miniNext" class="btn btn-primary">⏭️</button>
+        </div>
+    </div>
+    <audio id="audioPlayer" style="display:none;"></audio>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -276,6 +147,7 @@
     <script>
         AOS.init();
 
+        // Particle Animation
         const particles = document.querySelectorAll('.particle');
 
         function animateParticles() {
@@ -304,23 +176,102 @@
         animateParticles();
         window.addEventListener('resize', animateParticles);
 
-        document.getElementById('submitQuestionnaire').addEventListener('click', () => {
-            const selected = [];
-            document.querySelectorAll('#questionnaire input[type=checkbox]').forEach(cb => {
-                if (cb.checked) selected.push(cb.nextElementSibling.textContent);
-            });
+        // Player Logic
+        const songItems = Array.from(document.querySelectorAll('.song-item'));
+        const playerModal = document.getElementById('playerModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalImg = document.getElementById('modalImg');
+        const closeModal = document.getElementById('closeModal');
+        const prevSongBtn = document.getElementById('prevSong');
+        const nextSongBtn = document.getElementById('nextSong');
 
-            const sleepFrequency = document.querySelector('input[name="sleepFrequency"]:checked');
-            if (sleepFrequency) selected.push('Sleep Frequency: ' + sleepFrequency.nextElementSibling.textContent);
+        const miniPlayer = document.getElementById('miniPlayer');
+        const miniCover = document.getElementById('miniCover');
+        const miniTitle = document.getElementById('miniTitle');
+        const miniPlayPause = document.getElementById('miniPlayPause');
+        const miniNext = document.getElementById('miniNext');
+        const miniPrev = document.getElementById('miniPrev');
+        const audioPlayer = document.getElementById('audioPlayer');
 
-            const display = selected.length > 0 ? 'You selected: ' + selected.join(', ') : 'No selection made';
-            document.getElementById('selectedAnswers').textContent = display;
+        let currentIndex = 0;
+
+        function updateMiniPlayer() {
+            miniCover.src = songItems[currentIndex].getAttribute('data-img');
+            miniTitle.textContent = songItems[currentIndex].getAttribute('data-title');
+        }
+
+        function playSong(index) {
+            currentIndex = index;
+            const song = songItems[index];
+            const src = song.getAttribute('data-src');
+
+            // Update modal
+            modalTitle.textContent = song.getAttribute('data-title');
+            modalImg.src = song.getAttribute('data-img');
+
+            // Update mini player
+            audioPlayer.src = src;
+            audioPlayer.play();
+            miniPlayer.style.display = 'flex';
+            updateMiniPlayer();
+            playerModal.style.display = 'flex';
+        }
+
+        songItems.forEach((item, index) => {
+            item.addEventListener('click', () => playSong(index));
         });
 
-        document.getElementById('skipQuestionnaire').addEventListener('click', () => {
-            document.getElementById('selectedAnswers').textContent = 'Skipped';
-            document.querySelectorAll('#questionnaire input[type=checkbox]').forEach(cb => cb.checked = false);
-            document.querySelectorAll('#questionnaire input[type=radio]').forEach(rb => rb.checked = false);
+        // Modal close hides only
+        closeModal.addEventListener('click', () => playerModal.style.display = 'none');
+
+        // Modal next/prev
+        nextSongBtn.addEventListener('click', () => playSong((currentIndex + 1) % songItems.length));
+        prevSongBtn.addEventListener('click', () => playSong((currentIndex - 1 + songItems.length) % songItems.length));
+
+        // Mini Player controls
+        miniNext.addEventListener('click', () => playSong((currentIndex + 1) % songItems.length));
+        miniPrev.addEventListener('click', () => playSong((currentIndex - 1 + songItems.length) % songItems.length));
+        miniPlayPause.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                miniPlayPause.textContent = '⏸️';
+            } else {
+                audioPlayer.pause();
+                miniPlayPause.textContent = '▶️';
+            }
+        });
+
+        // Keyboard Controls
+        document.addEventListener('keydown', (e) => {
+            if (playerModal.style.display === 'flex') {
+                switch (e.code) {
+                    case 'ArrowRight':
+                        playSong((currentIndex + 1) % songItems.length);
+                        break;
+                    case 'ArrowLeft':
+                        playSong((currentIndex - 1 + songItems.length) % songItems.length);
+                        break;
+                    case 'Space':
+                        e.preventDefault();
+                        if (audioPlayer.paused) audioPlayer.play();
+                        else audioPlayer.pause();
+                        break;
+                }
+            }
+        });
+
+        // Swipe gestures
+        let touchStartX = 0,
+            touchEndX = 0;
+        const modalContent = playerModal.querySelector('div');
+        modalContent.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        modalContent.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            const swipeDistance = touchEndX - touchStartX;
+            if (Math.abs(swipeDistance) > 50) {
+                if (swipeDistance < 0) playSong((currentIndex + 1) % songItems.length);
+                else playSong((currentIndex - 1 + songItems.length) % songItems.length);
+            }
         });
     </script>
 </body>
