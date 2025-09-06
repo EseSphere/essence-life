@@ -290,9 +290,9 @@
                             <i class="bi bi-check-circle"></i> Next Step
                         </button>
 
-                        <button id="skipQuestionnaire" class="action-btn">
+                        <a href="./sleep-questions.php" type="button" id="skipQuestionnaire" class="action-btn text-decoration-none">
                             <i class="bi bi-skip-forward-circle"></i> Skip for now
-                        </button>
+                        </a>
                     </div>
 
                     <div id="selectedAnswers" class="mt-4 text-success fw-medium" style="font-size:1.1rem;"></div>
