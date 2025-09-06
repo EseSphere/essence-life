@@ -28,7 +28,7 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav style="background-color: #001F54;" class="navbar navbar-expand-lg fixed-top">
     <div class="container">
       <a class="navbar-brand" href="index.php">OfflineSite</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -49,3 +49,13 @@
       </div>
     </div>
   </nav>
+  <!-- Hero Wrapper -->
+  <div class="wrapper" id="hero">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <!-- Header -->
+    <section class="hero mt-5" id="questionnaire">
+      <div class="app-header mb-3"></div>

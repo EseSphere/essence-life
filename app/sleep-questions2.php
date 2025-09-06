@@ -32,7 +32,7 @@
             <i class="bi bi-check-circle"></i> Next Step
         </button>
 
-        <a href="./sleep-questions3.php" type="button" id="skipQuestionnaire" class="action-btn text-decoration-none">
+        <a href="./sleep-questions3?&ud=<?= $crackEncryptedbinary ?>" type="button" id="skipQuestionnaire" class="action-btn text-decoration-none">
             <i class="bi bi-skip-forward-circle"></i> Skip for now
         </a>
     </div>
