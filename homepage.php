@@ -1,355 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include 'header-panel.php'; ?>
+<!-- Hero Wrapper -->
+<div class="container-fluid text-center">
+    <h3 class="mb-2 fw-bold" style="color:#fff;">What brings you to Essence?</h3>
+    <p class="mb-4 text-light">Select all that apply to you</p>
+    <div class="row justify-content-center mb-2">
+        <div class="col-md-12">
+            <div class="d-flex flex-column align-items-center gap-3 mb-3">
+                <input type="radio" class="btn-check" name="sleepFrequency" id="sleepOccasionally" autocomplete="off">
+                <label class="btn btn-outline-primary" for="sleepOccasionally">
+                    <i class="bi bi-clock-history"></i> Reduce Stress
+                </label>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Essence – Calm, Meditate & Relax</title>
-    <meta name="description" content="Essence helps you find peace and relaxation with guided meditations, sleep stories, calming music, and mindfulness exercises.">
-    <meta name="keywords" content="Essence app, meditation, mindfulness, sleep stories, calming music, relaxation, stress relief, wellness">
-    <meta name="author" content="Essence Team">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Essence – Calm, Meditate & Relax">
-    <meta property="og:description" content="Discover inner calm with Essence. Guided meditations, soothing music, and sleep stories to improve focus and relaxation.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.essenceapp.com">
-    <meta property="og:image" content="https://www.essenceapp.com/assets/images/essence-preview.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Essence – Calm, Meditate & Relax">
-    <meta name="twitter:description" content="Relax, sleep better, and focus with Essence. Guided meditations, calming music, and sleep stories.">
-    <meta name="twitter:image" content="https://www.essenceapp.com/assets/images/essence-preview.jpg">
-    <link rel="stylesheet" href="./css/style2.css">
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+                <input type="radio" class="btn-check" name="sleepFrequency" id="sleepSometimes" autocomplete="off">
+                <label class="btn btn-outline-primary" for="sleepSometimes">
+                    <i class="bi bi-arrow-repeat"></i> Improve Sleep
+                </label>
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            scroll-behavior: smooth;
-        }
+                <input type="radio" class="btn-check" name="sleepFrequency" id="sleepFrequently" autocomplete="off">
+                <label class="btn btn-outline-primary" for="sleepFrequently">
+                    <i class="bi bi-lightning-fill"></i> Increase Focus
+                </label>
 
-        .navbar {
-            background: rgba(0, 0, 0, 0.8);
-        }
+                <input type="radio" class="btn-check" name="sleepFrequency" id="sleepNever" autocomplete="off">
+                <label class="btn btn-outline-primary" for="sleepNever">
+                    <i class="bi bi-slash-circle"></i> Practice Mindfulness
+                </label>
 
-        .navbar-brand,
-        .nav-link {
-            color: #fff !important;
-            font-weight: 500;
-        }
-
-        .navbar-brand:hover,
-        .nav-link:hover {
-            color: #198754 !important;
-        }
-
-        .wrapper {
-            position: relative;
-            min-height: 100vh;
-            background: linear-gradient(-45deg, #0d6efd, #198754, #6c757d, #000000);
-            background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
-            overflow: hidden;
-        }
-
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .particle {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 50%;
-            pointer-events: none;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Header */
-        .app-header {
-            display: flex;
-            align-items: left;
-            justify-content: left;
-            padding: 15px;
-            position: relative;
-            color: #fff;
-        }
-
-        .app-header img {
-            position: absolute;
-            left: 20px;
-            height: 40px;
-        }
-
-        .app-header h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-        }
-
-        /* Questionnaire */
-        #questionnaire h2 {
-            font-weight: 700;
-        }
-
-        #questionnaire .btn-outline-primary {
-            border: none;
-            border-radius: 15px;
-            padding: 15px 20px;
-            font-weight: 500;
-            font-size: 1rem;
-            color: #000;
-            background-color: #fff;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        #questionnaire .btn-outline-primary:hover {
-            background: linear-gradient(135deg, #198754, #0d6efd);
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        #questionnaire .btn-check:checked+.btn-outline-primary {
-            background: linear-gradient(135deg, #198754, #0d6efd);
-            color: #fff;
-            transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        #questionnaire .btn-outline-primary i {
-            font-size: 1.2rem;
-        }
-
-        /* Continue & Skip buttons */
-        .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 22px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 500;
-            border: none;
-            transition: all 0.3s ease;
-            width: 100%;
-            max-width: 420px;
-        }
-
-        #submitQuestionnaire {
-            background: linear-gradient(135deg, #0d6efd, #198754);
-            color: #fff;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-        }
-
-        #submitQuestionnaire:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
-        }
-
-        #skipQuestionnaire {
-            background: #f1f2f6;
-            color: #2f3542;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        #skipQuestionnaire:hover {
-            background: #dfe4ea;
-            transform: translateY(-3px);
-        }
-
-        /* Bottom Navbar */
-        .navbar-bottom {
-            background: rgba(0, 0, 0, 0.9);
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .navbar-bottom .nav-link {
-            color: #fff !important;
-            font-size: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-        }
-
-        .navbar-bottom .nav-link i {
-            font-size: 1.2rem;
-        }
-
-        .navbar-bottom .nav-link:hover {
-            color: #198754 !important;
-        }
-
-        footer {
-            background: #000;
-            color: #bbb;
-            padding: 50px 0 80px;
-            text-align: center;
-        }
-
-        footer a {
-            color: #0d6efd;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: #198754;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Header with logo & app name -->
-
-    <!-- Hero Wrapper -->
-    <div class="wrapper" id="hero">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-
-        <!-- Questionnaire -->
-        <section class="hero" id="questionnaire">
-            <div style="box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;" class="app-header mb-3">
-                <h1>Essence</h1>
+                <input type="radio" class="btn-check" name="sleepFrequency" id="sleepNever" autocomplete="off">
+                <label class="btn btn-outline-primary" for="sleepNever">
+                    <i class="bi bi-slash-circle"></i> General Relaxation
+                </label>
             </div>
+        </div>
 
-            <div class="container-fluid text-center">
-                <h3 class="mb-2 fw-bold" style="color:#fff;">What brings you to Essence?</h3>
-                <p class="mb-4 text-light">Select all that apply to you</p>
+        <div class="d-flex flex-column align-items-center gap-3">
+            <button id="submitQuestionnaire" class="action-btn">
+                <i class="bi bi-check-circle"></i> Next Step
+            </button>
 
-                <div class="row justify-content-center mb-2">
-                    <div class="col-md-12">
-                        <div class="d-flex flex-column align-items-center gap-3 mb-5">
-                            <input type="radio" class="btn-check" name="sleepFrequency" id="sleepOccasionally" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="sleepOccasionally">
-                                <i class="bi bi-clock-history"></i> Reduce Stress
-                            </label>
-
-                            <input type="radio" class="btn-check" name="sleepFrequency" id="sleepSometimes" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="sleepSometimes">
-                                <i class="bi bi-arrow-repeat"></i> Improve Sleep
-                            </label>
-
-                            <input type="radio" class="btn-check" name="sleepFrequency" id="sleepFrequently" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="sleepFrequently">
-                                <i class="bi bi-lightning-fill"></i> Increase Focus
-                            </label>
-
-                            <input type="radio" class="btn-check" name="sleepFrequency" id="sleepNever" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="sleepNever">
-                                <i class="bi bi-slash-circle"></i> Practice Mindfulness
-                            </label>
-
-                            <input type="radio" class="btn-check" name="sleepFrequency" id="sleepNever" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="sleepNever">
-                                <i class="bi bi-slash-circle"></i> General Relaxation
-                            </label>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: -30px;" class="d-flex flex-column align-items-center gap-3">
-                        <button id="submitQuestionnaire" class="action-btn">
-                            <i class="bi bi-check-circle"></i> Next Step
-                        </button>
-
-                        <a href="./sleep-questions.php" type="button" id="skipQuestionnaire" class="action-btn text-decoration-none">
-                            <i class="bi bi-skip-forward-circle"></i> Skip for now
-                        </a>
-                    </div>
-
-                    <div id="selectedAnswers" class="mt-4 text-success fw-medium" style="font-size:1.1rem;"></div>
-                </div>
-            </div>
-        </section>
+            <a href="./sleep-questions.php" type="button" id="skipQuestionnaire" class="action-btn text-decoration-none">
+                <i class="bi bi-skip-forward-circle"></i> Skip for now
+            </a>
+        </div>
+        <div id="selectedAnswers" class="mt-4 text-success fw-medium" style="font-size:1.1rem;"></div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-
-    <script>
-        AOS.init();
-
-        const particles = document.querySelectorAll('.particle');
-
-        function animateParticles() {
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            particles.forEach(p => {
-                gsap.set(p, {
-                    x: centerX,
-                    y: centerY,
-                    scale: Math.random() * 1 + 0.5,
-                    opacity: Math.random() * 0.5 + 0.3
-                });
-                gsap.to(p, {
-                    x: () => centerX + (Math.random() - 0.5) * window.innerWidth * 0.8,
-                    y: () => centerY + (Math.random() - 0.5) * window.innerHeight * 0.8,
-                    scale: () => Math.random() * 1 + 0.5,
-                    opacity: () => Math.random() * 0.5 + 0.3,
-                    duration: () => 10 + Math.random() * 15,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut",
-                    delay: Math.random() * 5
-                });
-            });
-        }
-        animateParticles();
-        window.addEventListener('resize', animateParticles);
-
-        document.getElementById('submitQuestionnaire').addEventListener('click', () => {
-            const selected = [];
-            document.querySelectorAll('#questionnaire input[type=checkbox]').forEach(cb => {
-                if (cb.checked) selected.push(cb.nextElementSibling.textContent);
-            });
-
-            const sleepFrequency = document.querySelector('input[name="sleepFrequency"]:checked');
-            if (sleepFrequency) selected.push('Sleep Frequency: ' + sleepFrequency.nextElementSibling.textContent);
-
-            const display = selected.length > 0 ? 'You selected: ' + selected.join(', ') : 'No selection made';
-            document.getElementById('selectedAnswers').textContent = display;
-        });
-
-        document.getElementById('skipQuestionnaire').addEventListener('click', () => {
-            document.getElementById('selectedAnswers').textContent = 'Skipped';
-            document.querySelectorAll('#questionnaire input[type=checkbox]').forEach(cb => cb.checked = false);
-            document.querySelectorAll('#questionnaire input[type=radio]').forEach(rb => rb.checked = false);
-        });
-    </script>
-</body>
-
-</html>
+<?php include 'footer-panel.php'; ?>
