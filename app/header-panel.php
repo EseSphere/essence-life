@@ -40,5 +40,5 @@
         <!-- Questionnaire -->
         <section class="hero" id="questionnaire">
             <div style="box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;" class="app-header mb-5">
-                <img src="./images/logo/favicon.png" style="" alt="Essence Life Logo">
+                <img src="./images/logo/favicon.png" alt="Essence Life Logo">
             </div>

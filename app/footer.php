@@ -1,7 +1,7 @@
     </section>
     </div>
     <!-- Bottom Navbar -->
-    <nav style="background-color: #001F54;" class="navbar navbar-expand-lg navbar-bottom">
+    <nav style="background-color: #001F54; position:fixed; bottom:0; right:0; left:0;" class="navbar navbar-expand-lg navbar-bottom">
       <div class="container justify-content-around">
         <a class="nav-link" href="#hero"><i class="bi bi-house-door"></i> Home</a>
         <a class="nav-link" href="#questionnaire"><i class="bi bi-bullseye"></i> Goals</a>
@@ -12,7 +12,7 @@
     </nav>
 
     <!-- Modal Player -->
-    <div id="playerModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#001F54;display:none;justify-content:center;align-items:center;z-index:1000;padding:10px;">
+    <div id="playerModal" style="position:fixed;bottom:60px;left:0;width:100%;height:100%;background:#001F54;display:none;justify-content:center;align-items:center;z-index:1000;padding:10px;">
       <div style="background:#001F54;padding:15px;border-radius:12px;text-align:center;max-width:400px;width:100%;height:auto;display:flex;flex-direction:column;justify-content:center;">
         <h2 id="modalTitle" style="color:white;font-size:1.3rem;margin-bottom:10px;"></h2>
         <img id="modalImg" src="" style="width:100%;height:auto;max-height:300px;object-fit:cover;border-radius:12px;margin-bottom:10px;">
