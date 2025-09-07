@@ -9,9 +9,9 @@ session_start();
 date_default_timezone_set("Europe/London");
 
 $dbHost = getenv('DB_HOST') ?: 'localhost';
-$dbUser = getenv('DB_USER') ?: 'tashsmzr_essencelife';
-$dbPass = getenv('DB_PASS') ?: 'Essencelife@121';
-$dbName = getenv('DB_NAME') ?: 'tashsmzr_essencelife';
+$dbUser = getenv('DB_USER') ?: 'root';
+$dbPass = getenv('DB_PASS') ?: '';
+$dbName = getenv('DB_NAME') ?: 'essence_life';
 
 $conn = @new mysqli($dbHost, $dbUser, $dbPass, $dbName);
 

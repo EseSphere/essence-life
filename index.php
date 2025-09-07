@@ -93,6 +93,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="./js/script_essence.js"></script>
+  <script src="./clone_db.js"></script>
   <script src="script.js"></script>
 </body>
 

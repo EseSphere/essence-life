@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cached Links Dashboard</title>
+<style>
+body { font-family: Arial; padding: 2rem; background:#f5f5f5; }
+h1 { margin-bottom:1rem; }
+table { width:100%; border-collapse:collapse; margin-top:1rem; }
+th, td { padding:0.5rem 1rem; border:1px solid #ddd; text-align:left; }
+th { background:#f0f0f0; }
+tr:nth-child(even){ background:#fafafa; }
+.status{ font-weight:bold; padding:0.2rem 0.5rem; border-radius:4px; color:white;}
+.cached{ background:#4caf50; }
+.indexed{ background:#2196f3; }
+.both{ background:#ff9800; }
+</style>
+</head>
+<body>
+<h1>Cached Links Dashboard</h1>
+<table>
+<thead><tr><th>Link</th><th>Status</th></tr></thead>
+<tbody id="link-table"><tr><td colspan="2">Loading...</td></tr></tbody>
+</table>
+
+<script>
+const CACHE_NAME = 'essence-life-v5';
+let db;
+
+const request = indexedDB.open('CachedLinksDB', 1);
+request.onsuccess = event => { db = event.target.result; displayLinks(); };
+request.onerror = event => console.error('IndexedDB error:', event.target.errorCode);
+
+async function getCachedLinks(){
+    const cache = await caches.open(CACHE_NAME);
+    const requests = await cache.keys();
+    return requests.map(req=>req.url);
+}
+
+async function displayLinks(){
+    const tbody = document.getElementById('link-table');
+    tbody.innerHTML = '';
+    let idbLinks = [];
+    if(db){
+        const tx = db.transaction('links','readonly');
+        const store = tx.objectStore('links');
+        const allReq = store.getAll();
+        idbLinks = await new Promise(resolve=>{
+            allReq.onsuccess=()=>resolve(allReq.result.map(e=>e.url));
+            allReq.onerror=()=>resolve([]);
+        });
+    }
+    const cachedLinks = await getCachedLinks();
+    const allLinks = Array.from(new Set([...idbLinks,...cachedLinks]));
+    if(allLinks.length===0){tbody.innerHTML='<tr><td colspan="2">No links found.</td></tr>'; return;}
+    allLinks.forEach(url=>{
+        const tr=document.createElement('tr');
+        const tdUrl=document.createElement('td');
+        tdUrl.innerHTML=`<a href="${url}" target="_blank">${url}</a>`;
+        const tdStatus=document.createElement('td');
+        let statusClass='', statusText='';
+        const inIDB=idbLinks.includes(url), inCache=cachedLinks.includes(url);
+        if(inIDB && inCache){statusClass='both'; statusText='IndexedDB + Cached';}
+        else if(inIDB){statusClass='indexed'; statusText='IndexedDB';}
+        else if(inCache){statusClass='cached'; statusText='Cached';}
+        tdStatus.textContent=statusText;
+        tdStatus.className=`status ${statusClass}`;
+        tr.appendChild(tdUrl);
+        tr.appendChild(tdStatus);
+        tbody.appendChild(tr);
+    });
+}
+
+// Refresh every 5s
+setInterval(displayLinks,5000);
+</script>
+</body>
+</html>

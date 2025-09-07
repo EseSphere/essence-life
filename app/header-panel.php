@@ -40,5 +40,12 @@
         <!-- Questionnaire -->
         <section class="hero" id="questionnaire">
             <div style="box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;" class="app-header mb-5">
-                <img src="./images/logo/favicon.png" alt="Essence Life Logo">
+                <div class="row w-100">
+                    <div class="col-2 d-flex align-items-center justify-content-center">
+                        <img src="./images/logo/favicon.png" alt="Essence Life Logo">
+                    </div>
+                    <div class="col-8 d-flex align-items-center justify-content-center">
+                        <h1 style="color: rgba(236, 240, 241,.8);" class="text-center fw-bold">Essence Life</h1>
+                    </div>
+                </div>
             </div>

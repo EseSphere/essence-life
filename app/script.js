@@ -1,28 +1,58 @@
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js')
+    navigator.serviceWorker.register('sw.js')
         .then(() => console.log('Service Worker Registered'))
         .catch(err => console.error('SW registration failed:', err));
 }
 
-// Send all internal PHP links to service worker
-function sendLinksToSW() {
-    const links = Array.from(document.querySelectorAll('a'))
-                       .map(a => a.href)
-                       .filter(href => href.startsWith(location.origin) && href.includes('.php'));
+// IndexedDB setup to store links
+let db;
+const request = indexedDB.open('CachedLinksDB', 1);
 
-    if (navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
-            action: 'cacheLinks',
-            links: links
-        });
+request.onupgradeneeded = event => {
+    db = event.target.result;
+    if (!db.objectStoreNames.contains('links')) {
+        db.createObjectStore('links', { keyPath: 'url' });
     }
+};
+
+request.onsuccess = event => {
+    db = event.target.result;
+    navigator.serviceWorker.ready.then(() => captureLinks());
+};
+
+request.onerror = event => {
+    console.error('IndexedDB error:', event.target.errorCode);
+};
+
+// Capture all internal links and send to SW
+function captureLinks() {
+    if (!navigator.serviceWorker.controller || !db) return;
+
+    const links = Array.from(document.querySelectorAll('a'))
+        .map(a => a.href)
+        .filter(href => href.startsWith(location.origin));
+
+    if (links.length === 0) return;
+
+    // Store in IndexedDB
+    const tx = db.transaction('links', 'readwrite');
+    const store = tx.objectStore('links');
+    links.forEach(url => store.put({ url }));
+
+    // Send to SW for caching
+    navigator.serviceWorker.controller.postMessage({
+        action: 'cacheLinks',
+        links: links
+    });
 }
 
-// Initial caching after page load
-window.addEventListener('load', () => sendLinksToSW());
-
-// Observe DOM mutations for dynamic links (e.g., from IndexedDB)
+// Observe dynamic links
+let sendTimeout;
 const observer = new MutationObserver(() => {
-    sendLinksToSW();
+    clearTimeout(sendTimeout);
+    sendTimeout = setTimeout(() => captureLinks(), 500);
 });
 observer.observe(document.body, { childList: true, subtree: true });
+
+// Initial capture on page load
+window.addEventListener('load', () => captureLinks());
