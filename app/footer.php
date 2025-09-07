@@ -3,10 +3,18 @@
     <!-- Bottom Navbar -->
     <nav style="background-color: #001F54; position:fixed; bottom:0; right:0; left:0;" class="navbar navbar-expand-lg navbar-bottom">
       <div class="container justify-content-around">
-        <a class="nav-link" href="./home"><i class="bi bi-house-door"></i> Home</a>
-        <a class="nav-link" href="./playlist"><i class="bi bi-music-note-list"></i> Play List</a>
-        <a class="nav-link" href="./discover"><i class="bi bi-compass"></i> Discover</a>
-        <a class="nav-link" href="./profile"><i class="bi bi-person-circle"></i> Profile</a>
+        <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == './home') {
+                              echo 'active';
+                            } ?>" href="./home"><i class="bi bi-house-door"></i> Home</a>
+        <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == './playlist') {
+                              echo 'active';
+                            } ?>" href="./playlist"><i class="bi bi-music-note-list"></i> Play List</a>
+        <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == './discover') {
+                              echo 'active';
+                            } ?>" href="./discover"><i class="bi bi-compass"></i> Discover</a>
+        <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == './profile') {
+                              echo 'active';
+                            } ?>" href="./profile"><i class="bi bi-person-circle"></i> Profile</a>
       </div>
     </nav>
 

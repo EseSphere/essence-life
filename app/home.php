@@ -14,55 +14,35 @@
     <hr>
     <!-- Music Category -->
     <div id="categoriesContainer">
-        <?php
-        // Database connection
-        $mysqli = new mysqli("localhost", "root", "", "essence_life");
-        if ($mysqli->connect_error) {
-            die("Connection failed: " . $mysqli->connect_error);
-        }
+        <div class="category-row">
+            <div class="category-title w-100 justify-start items-flex-start text-start">Music
+                <p class="fs-6 text-start">Discover songs in a real way to go</p>
+            </div>
+            <div class="slider">
+                <div class="song-item"
+                    data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                    data-title="Acoustic Sunrise"
+                    data-img="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=400">
+                    <img src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=400">
+                    <p>Acoustic Sunrise <br><span style="font-size: 13px;">Song - Frank Hugin</span></p>
+                </div>
+            </div>
+        </div>
 
-        // Fetch all contents grouped by category
-        $sql = "SELECT * FROM contents ORDER BY content_type, id";
-        $result = $mysqli->query($sql);
-
-        // Organize data by content_type
-        $categories = [];
-        while ($row = $result->fetch_assoc()) {
-            $categories[$row['content_type']][] = $row;
-        }
-
-        // Category descriptions (optional)
-        $category_descriptions = [
-            'song' => 'Discover relaxing and inspiring tracks to lift your mood and energize your day.',
-            'meditation' => 'Calm your mind with soothing tracks designed for meditation, mindfulness, and relaxation.',
-            'sleep' => 'Sleep better with calming sounds and peaceful melodies.',
-            'story' => 'Engaging stories to entertain and inspire.',
-            'motivation' => 'Boost your motivation and productivity with uplifting content.',
-            'wisdom' => 'Listen to wise thoughts and guidance to enrich your life.',
-            'relaxation' => 'Relax and unwind with peaceful audio tracks.'
-        ];
-
-        // Generate HTML
-        foreach ($categories as $type => $items) {
-            echo '<div class="category-row">';
-            echo '<div class="category-title w-100 flex justify-start items-start text-start">' . ucfirst($type);
-            if (isset($category_descriptions[$type])) {
-                echo '<p class="fw-semibold fs-6">' . $category_descriptions[$type] . '</p>';
-            }
-            echo '</div>';
-            echo '<div class="slider">';
-            foreach ($items as $item) {
-                echo '<div class="song-item" data-src="' . $item['content_url'] . '" data-title="' . $item['content_name'] . '" data-img="' . $item['image_url'] . '">';
-                echo '<img src="' . $item['image_url'] . '">';
-                echo '<p>' . $item['content_name'] . ' <br><span style="font-size: 13px;">' . $item['description'] . '</span></p>';
-                echo '</div>';
-            }
-            echo '</div>'; // slider
-            echo '</div>'; // category-row
-        }
-
-        $mysqli->close();
-        ?>
+        <div class="category-row">
+            <div class="category-title w-100 justify-start items-flex-start text-start">Meditation
+                <p class="fs-6 text-start">Experience more meditations in a different way</p>
+            </div>
+            <div class="slider">
+                <div class="song-item"
+                    data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                    data-title="Acoustic Sunrise"
+                    data-img="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=400">
+                    <img src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=400">
+                    <p>Acoustic Sunrise <br><span style="font-size: 13px;">Meditation - Frank Hugin</span></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
