@@ -1,5 +1,5 @@
 const CACHE_NAME = 'essence-life-v1';
-const OFFLINE_FALLBACK = new URL('offline.html', self.registration.scope).toString();
+const OFFLINE_FALLBACK = new URL('../offline.html', self.registration.scope).toString();
 const MAX_CONCURRENT_FETCHES = 3;
 
 // Install: cache offline fallback

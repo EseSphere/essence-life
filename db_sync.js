@@ -1,6 +1,7 @@
 const dbName = "essence_life";
 const dbVersion = 1;
 
+// Open IndexedDB dynamically
 async function openDatabase(tablesData = {}) {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(dbName, dbVersion);
@@ -31,50 +32,28 @@ async function openDatabase(tablesData = {}) {
   });
 }
 
-// Record local changes
-async function recordChange(tableName, row, type) {
-  const db = await openDatabase({});
-  const tx1 = db.transaction(tableName, "readwrite");
-  const store = tx1.objectStore(tableName);
-
-  const now = new Date().toISOString();
-  row.updated_at = now;
-  if (type === "delete") row.deleted_at = now;
-
-  if (type === "insert" || type === "update") store.put(row);
-  if (type === "delete") store.delete(row[store.keyPath]);
-
-  const tx2 = db.transaction("sync_queue", "readwrite");
-  tx2.objectStore("sync_queue").add({ tableName, row, type, timestamp: now });
-}
-
-// Offline-aware two-way sync
+// Offline-aware full clone
 async function syncDatabase() {
   if (!navigator.onLine) return console.log("Offline, will sync later.");
 
-  const lastSync = localStorage.getItem("lastSync") || "1970-01-01 00:00:00";
-
+  // Force full clone if first load
+  let lastSync = localStorage.getItem("lastSync") || '';
   const res = await fetch(`export_db.php?lastSync=${encodeURIComponent(lastSync)}`);
   const databaseData = await res.json();
   const db = await openDatabase(databaseData);
 
+  // Apply data to IndexedDB
   for (const tableName in databaseData) {
     const { rows } = databaseData[tableName];
     const tx = db.transaction(tableName, "readwrite");
     const store = tx.objectStore(tableName);
 
     rows.forEach(row => {
-      const getReq = store.get(row[store.keyPath]);
-      getReq.onsuccess = e => {
-        const localRow = e.target.result;
-        if (!localRow || new Date(row.updated_at) > new Date(localRow.updated_at)) {
-          if (row.deleted_at) store.delete(row[store.keyPath]);
-          else store.put(row);
-        }
-      };
+      store.put(row); // put will insert or update automatically
     });
   }
 
+  // Sync local changes back to MySQL (if any)
   const txQueue = db.transaction("sync_queue", "readonly");
   const allChanges = await txQueue.objectStore("sync_queue").getAll();
 
@@ -96,7 +75,7 @@ async function syncDatabase() {
   localStorage.setItem("lastSync", new Date().toISOString());
 }
 
-// Auto-sync
+// Auto-sync on load and periodically
+window.addEventListener("load", syncDatabase);
 setInterval(syncDatabase, 5 * 60 * 1000);
 window.addEventListener("online", syncDatabase);
-syncDatabase();

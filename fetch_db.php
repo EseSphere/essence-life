@@ -1,13 +1,5 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "essence_life";
-
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'dbconnections.php';
 
 $database_data = [];
 $tables_result = $conn->query("SHOW TABLES");

@@ -1,13 +1,8 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "essence_life";
+require_once 'dbconnections.php';
 
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+$lastSync = $_GET['lastSync'] ?? '';
 
-$lastSync = $_GET['lastSync'] ?? '1970-01-01 00:00:00';
 $tablesResult = $conn->query("SHOW TABLES");
 $databaseData = [];
 
@@ -24,8 +19,13 @@ while ($row = $tablesResult->fetch_array()) {
     $primaryKeys = [];
     while ($pk = $pkResult->fetch_assoc()) $primaryKeys[] = $pk['Column_name'];
 
-    // Get rows updated or deleted since last sync
-    $rowsResult = $conn->query("SELECT * FROM `$table` WHERE updated_at >= '$lastSync' OR deleted_at >= '$lastSync'");
+    // If lastSync is empty, fetch ALL rows
+    if (empty($lastSync)) {
+        $rowsResult = $conn->query("SELECT * FROM `$table`");
+    } else {
+        $rowsResult = $conn->query("SELECT * FROM `$table` WHERE updated_at >= '$lastSync' OR deleted_at >= '$lastSync'");
+    }
+
     $rows = [];
     while ($r = $rowsResult->fetch_assoc()) $rows[] = $r;
 
