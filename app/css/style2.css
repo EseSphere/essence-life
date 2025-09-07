@@ -235,7 +235,7 @@ body {
         }
 
 .hero {
-    background: url('images/hero-bg.jpg') center/cover no-repeat;
+    background: url('../images/hero-bg.jpg') center/cover no-repeat;
     color: white;
     padding: 80px 20px;
     text-align: center;
@@ -258,3 +258,8 @@ input {
     border: none !important;
     color: #fff !important;
 }
+
+#searchBar::placeholder {
+    color: #bdc3c7;
+    opacity: 1; /* Ensures it stays fully white */
+  }

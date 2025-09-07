@@ -1,5 +1,5 @@
 const CACHE_NAME = 'essence-life-v1';
-const OFFLINE_FALLBACK = 'index.php';
+const OFFLINE_FALLBACK = './index';
 const MAX_CONCURRENT_FETCHES = 3;
 
 self.addEventListener('install', event => {

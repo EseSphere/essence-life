@@ -46,6 +46,24 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="./js/script_essence.js"></script>
     <script src="script.js"></script>
+    <script>
+      function getGreeting(name) {
+        const hour = new Date().getHours();
+        let greeting;
+
+        if (hour < 12) {
+          greeting = "Good Morning";
+        } else if (hour < 18) {
+          greeting = "Good Afternoon";
+        } else {
+          greeting = "Good Evening";
+        }
+
+        return `${greeting} ${name}`;
+      }
+
+      document.getElementById("greeting").textContent = getGreeting("Samson");
+    </script>
     </body>
 
     </html>

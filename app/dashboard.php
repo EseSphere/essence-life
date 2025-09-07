@@ -1,9 +1,8 @@
 <?php include 'header.php'; ?>
 
-
 <div class="container-fluid">
     <div class="w-full flex justify-start items-start text-start mt-2">
-        <h4 class="font-bold text-white">Good Afternoon, Name</h4>
+        <h4 class="font-bold text-white" id="greeting"></h4>
         <p class="text-white">Recently Added</p>
     </div>
     <hr>
