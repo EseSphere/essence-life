@@ -3,11 +3,10 @@
     <!-- Bottom Navbar -->
     <nav style="background-color: #001F54; position:fixed; bottom:0; right:0; left:0;" class="navbar navbar-expand-lg navbar-bottom">
       <div class="container justify-content-around">
-        <a class="nav-link" href="#hero"><i class="bi bi-house-door"></i> Home</a>
-        <a class="nav-link" href="#questionnaire"><i class="bi bi-bullseye"></i> Goals</a>
-        <a class="nav-link" href="#features"><i class="bi bi-stars"></i> Features</a>
-        <a class="nav-link" href="#cta"><i class="bi bi-download"></i> Get App</a>
-        <a class="nav-link" href="#footer"><i class="bi bi-envelope"></i> Contact</a>
+        <a class="nav-link" href="./home"><i class="bi bi-house-door"></i> Home</a>
+        <a class="nav-link" href="./playlist"><i class="bi bi-music-note-list"></i> Play List</a>
+        <a class="nav-link" href="./discover"><i class="bi bi-compass"></i> Discover</a>
+        <a class="nav-link" href="./profile"><i class="bi bi-person-circle"></i> Profile</a>
       </div>
     </nav>
 

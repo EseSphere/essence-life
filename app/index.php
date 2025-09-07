@@ -1,6 +1,6 @@
 <?php
 require_once('header.php');
-header('Location: ./homepage') ?>
+header('Location: ./question') ?>
 
 <!-- Hero Section -->
 <section class="hero text-center py-5" style="background:#17a2b8;">
