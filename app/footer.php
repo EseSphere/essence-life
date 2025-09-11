@@ -53,7 +53,7 @@
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="script.js"></script>
+<!--<script src="script.js"></script>-->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     // Intercept all internal link clicks
@@ -274,7 +274,7 @@
       };
       localStorage.setItem("currentSongData", JSON.stringify(state));
 
-      window.location.href = "play.php";
+      window.location.href = "./player";
     });
 
     // --- Restore audio state if not closed ---
