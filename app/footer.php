@@ -28,7 +28,7 @@
             <img id="currentSongImage" src="default.png" alt="Now Playing">
           </div>
           <div class="col-md-8 col-8 flex items-center justify-center text-center">
-            <div id="currentSongTitle">Song Title</div>
+            <div id="currentSongTitle" style="cursor:pointer; text-decoration:underline;">Song Title</div>
             <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1">
             <span class="player-time" id="currentTime">0:00</span> /
             <span class="player-time" id="duration">0:00</span>
@@ -44,7 +44,6 @@
         </div>
       </div>
     </div>
-    <!-- Cancel Button -->
   </div>
   <audio id="audioPlayer"></audio>
 </div>
@@ -148,7 +147,10 @@
     const durationElem = document.getElementById("duration");
     const closePlayerBtn = document.getElementById("closePlayerBtn");
 
-    // Hide player by default
+    // Check if user closed player previously
+    const playerClosed = localStorage.getItem("playerClosed") === "true";
+
+    // Hide player on load
     playerContainer.style.display = "none";
 
     let currentCategory = null;
@@ -168,6 +170,11 @@
     }
 
     function playSong(category, index) {
+      // Re-enable player if it was permanently closed
+      if (localStorage.getItem("playerClosed") === "true") {
+        localStorage.removeItem("playerClosed");
+      }
+
       const item = categories[category][index];
       if (!item) return;
 
@@ -182,6 +189,16 @@
 
       currentSongTitle.textContent = `${item.content_name} (${category})`;
       currentSongImage.src = item.image_url || 'default.png';
+
+      // Save song metadata for play.php page
+      localStorage.setItem("currentSongData", JSON.stringify({
+        src: item.content_url,
+        title: item.content_name,
+        img: item.image_url || "default.png",
+        category: category,
+        currentTime: 0,
+        paused: false
+      }));
 
       // Highlight currently playing song
       document.querySelectorAll(".song-item").forEach(el => el.classList.remove("playing"));
@@ -234,31 +251,50 @@
       }
     });
 
-    // Cancel button hides the player, stops audio, and clears localStorage
+    // Close button hides player + stops audio + prevents auto-restore
     closePlayerBtn.addEventListener("click", () => {
       audioPlayer.pause(); // Stop audio
-      audioPlayer.src = ""; // Clear audio source
+      audioPlayer.src = ""; // Clear source
       playerContainer.style.display = "none";
-      localStorage.removeItem("audioPlayerState"); // Clear saved audio state
+      localStorage.setItem("playerClosed", "true"); // mark closed
+      localStorage.removeItem("audioPlayerState"); // clear playback state
     });
 
-    // --- Persist player across pages ---
-    // Restore audio state if exists
-    const savedState = localStorage.getItem("audioPlayerState");
-    if (savedState) {
-      const state = JSON.parse(savedState);
-      if (state.src) {
-        audioPlayer.src = state.src;
-        audioPlayer.currentTime = state.currentTime || 0;
-        currentSongTitle.textContent = state.title || "Song Title";
-        currentSongImage.src = state.img || "default.png";
-        playerContainer.style.display = "flex";
-        if (!state.paused) audioPlayer.play();
-        playPauseBtn.textContent = audioPlayer.paused ? "▶️" : "⏸️";
+    // --- Redirect to play.php when clicking title ---
+    currentSongTitle.addEventListener("click", () => {
+      if (!audioPlayer.src) return; // do nothing if no song is playing
+
+      const state = {
+        src: audioPlayer.src,
+        currentTime: audioPlayer.currentTime,
+        paused: audioPlayer.paused,
+        title: currentSongTitle.textContent,
+        img: currentSongImage.src,
+        category: currentCategory
+      };
+      localStorage.setItem("currentSongData", JSON.stringify(state));
+
+      window.location.href = "play.php";
+    });
+
+    // --- Restore audio state if not closed ---
+    if (!playerClosed) {
+      const savedState = localStorage.getItem("audioPlayerState");
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        if (state.src) {
+          audioPlayer.src = state.src;
+          audioPlayer.currentTime = state.currentTime || 0;
+          currentSongTitle.textContent = state.title || "Song Title";
+          currentSongImage.src = state.img || "default.png";
+          playerContainer.style.display = "flex";
+          if (!state.paused) audioPlayer.play();
+          playPauseBtn.textContent = audioPlayer.paused ? "▶️" : "⏸️";
+        }
       }
     }
 
-    // Save audio state every second
+    // --- Save audio state every second ---
     setInterval(() => {
       if (!audioPlayer.src) return;
       const state = {
@@ -266,11 +302,11 @@
         currentTime: audioPlayer.currentTime,
         paused: audioPlayer.paused,
         title: currentSongTitle.textContent,
-        img: currentSongImage.src
+        img: currentSongImage.src,
+        category: currentCategory
       };
       localStorage.setItem("audioPlayerState", JSON.stringify(state));
     }, 1000);
-    // --- End persistence ---
 
     // Populate categories
     container.innerHTML = "";
@@ -337,6 +373,7 @@
 
   document.getElementById("greeting").textContent = getGreeting("Samson");
 </script>
+
 </body>
 
 </html>
