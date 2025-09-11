@@ -7,8 +7,8 @@ if ('serviceWorker' in navigator) {
 // Send all internal PHP links to service worker
 function sendLinksToSW() {
     const links = Array.from(document.querySelectorAll('a'))
-                       .map(a => a.href)
-                       .filter(href => href.startsWith(location.origin) && href.includes('.php'));
+        .map(a => a.href)
+        .filter(href => href.startsWith(location.origin) && href.includes('.php'));
 
     if (navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({

@@ -7,8 +7,7 @@
     </div>
     <hr>
     <!-- Music Category -->
-    <div id="categoriesContainer">
-    </div>
+    <div id="categoriesContainer"></div>
 </div>
 
 <?php include 'footer.php'; ?>
