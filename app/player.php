@@ -2,7 +2,7 @@
 
 <div class="container">
     <!-- Compact Main Player -->
-    <div class="card bg-dark text-white shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
+    <div id="card-bg" class="card text-white shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
         <div class="row g-0 align-items-center">
             <!-- Song Image -->
             <div class="col-md-4 col-12">
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Audio Info -->
-    <div class="card bg-dark flex justify-start items-start text-white p-2 text-start mb-4 mt-4 shadow-lg border-rounded">
+    <div id="card-bg" class="card flex justify-start items-start text-white p-2 text-start mb-4 mt-4 shadow-lg border-rounded">
         <h6 class="text-white fw-bold mt-1 mb-1">Audio info</h6>
         <hr>
         <p style="color: rgba(236, 240, 241,.6);">Year added</p>
@@ -55,7 +55,9 @@
     </div>
 
     <!-- Up Next -->
-    <h5 class="text-white fw-bold mt-4 mb-3">Up Next</h5>
+    <div id="card-bg" class="card flex justify-start items-start text-white p-2 text-start mb-2 mt-4 shadow-lg border-rounded">
+        <h6 class="text-white fw-bold w-100 flex justify-start text-start items-start">Similar audios</h6>
+    </div>
     <div class="up-next-wrapper position-relative">
         <button id="slideLeft" type="button" class="slider-btn left d-none" aria-label="Scroll left">
             <i class="bi bi-chevron-left"></i>
@@ -65,13 +67,28 @@
             <i class="bi bi-chevron-right"></i>
         </button>
     </div>
+
+    <!-- Description Info -->
+    <div id="card-bg" class="card flex justify-start items-start text-white p-2 text-start mb-4 mt-5 shadow-lg border-rounded">
+        <h5 class="display-6 font-weight-bold">Essence – Life, <br><small>Meditate & Relax</small></h5>
+        <p class="lead fs-6">Discover inner peace with guided meditations, calming music, and sleep stories.</p>
+    </div>
 </div>
 
-<audio id="audioPlayer"></audio>
+
 
 <?php include 'footer.php'; ?>
 
 <style>
+    #card-bg {
+        background-color: #192a56;
+        font-size: 14px;
+    }
+
+    #audioPlayerContainer {
+        display: none !important;
+    }
+
     /* Compact slider style */
     .custom-range {
         -webkit-appearance: none;

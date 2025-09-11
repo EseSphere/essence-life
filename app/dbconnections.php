@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+$user_id = $_SESSION['user_id'] ?? 1;
 //if (empty($_SESSION['usr_email'])) {
 //  header("Location: ./index");
 //  exit();
