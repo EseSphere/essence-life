@@ -1,5 +1,6 @@
+<!--Player.php-->
 <?php include 'header.php'; ?>
-
+<link rel="stylesheet" href="./css/player_style.css">
 <div class="container">
     <!-- Compact Main Player -->
     <div id="card-bg" class="card text-white shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
@@ -40,20 +41,6 @@
         </div>
     </div>
 
-    <!-- Audio Info -->
-    <div id="card-bg" class="card flex justify-start items-start text-white p-2 text-start mb-4 mt-4 shadow-lg border-rounded">
-        <h6 class="text-white fw-bold mt-1 mb-1">Audio info</h6>
-        <hr>
-        <p style="color: rgba(236, 240, 241,.6);">Year added</p>
-        <p style="margin-top: -15px;" id="yearAdded" class="text-white">Year added</p>
-        <p style="color: rgba(236, 240, 241,.6);">Name</p>
-        <p style="margin-top: -15px;" id="songName" class="text-white">Name</p>
-        <p style="color: rgba(236, 240, 241,.6);">Description</p>
-        <p style="margin-top: -15px;" id="description" class="text-white">Description</p>
-        <p style="color: rgba(236, 240, 241,.6);">Category</p>
-        <p style="margin-top: -15px;" id="songCategory" class="text-white">Category</p>
-    </div>
-
     <!-- Up Next -->
     <div id="card-bg" class="card flex justify-start items-start text-white p-2 text-start mb-2 mt-4 shadow-lg border-rounded">
         <h6 class="text-white fw-bold w-100 flex justify-start text-start items-start">Similar audios</h6>
@@ -68,150 +55,29 @@
         </button>
     </div>
 
+    <!-- Audio Info -->
+    <div id="card-bg" class="card flex justify-start items-start text-white p-2 text-start mb-4 mt-4 shadow-lg border-rounded">
+        <h6 class="text-white fw-bold mt-1 mb-1">Audio info</h6>
+        <hr>
+        <p style="color: rgba(236, 240, 241,.6);">Year added</p>
+        <p style="margin-top: -15px;" id="yearAdded" class="text-white">Year added</p>
+        <p style="color: rgba(236, 240, 241,.6);">Name</p>
+        <p style="margin-top: -15px;" id="songName" class="text-white">Name</p>
+        <p style="color: rgba(236, 240, 241,.6);">Description</p>
+        <p style="margin-top: -15px;" id="description" class="text-white">Description</p>
+        <p style="color: rgba(236, 240, 241,.6);">Category</p>
+        <p style="margin-top: -15px;" id="songCategory" class="text-white">Category</p>
+    </div>
+
     <!-- Description Info -->
-    <div id="card-bg" class="card flex justify-start items-start text-white p-2 text-start mb-4 mt-5 shadow-lg border-rounded">
-        <h5 class="display-6 font-weight-bold">Essence – Life, <br><small>Meditate & Relax</small></h5>
+    <div class="card flex justify-start alert alert-success items-start p-2 text-start mb-4 mt-5 shadow-lg border-rounded">
+        <h4 class="font-weight-bold">Essence – Life, Meditate & Relax</h4>
+        <hr>
         <p class="lead fs-6">Discover inner peace with guided meditations, calming music, and sleep stories.</p>
     </div>
 </div>
 
-
-
 <?php include 'footer.php'; ?>
-
-<style>
-    #card-bg {
-        background-color: #192a56;
-        font-size: 14px;
-    }
-
-    #audioPlayerContainer {
-        display: none !important;
-    }
-
-    /* Compact slider style */
-    .custom-range {
-        -webkit-appearance: none;
-        appearance: none;
-        background: #555;
-        height: 5px;
-        border-radius: 3px;
-    }
-
-    .custom-range::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #1db954;
-        cursor: pointer;
-        margin-top: -3.5px;
-    }
-
-    .custom-range::-moz-range-thumb {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #1db954;
-        cursor: pointer;
-    }
-
-    /* Up Next wrapper + arrows */
-    .up-next-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-    .slider-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.6);
-        border: none;
-        color: #fff;
-        font-size: 1.5rem;
-        padding: 8px 12px;
-        cursor: pointer;
-        z-index: 10;
-        border-radius: 50%;
-        transition: background 0.2s, opacity 0.2s;
-    }
-
-    .slider-btn:hover {
-        background: rgba(0, 0, 0, 0.9);
-    }
-
-    .slider-btn.left {
-        left: -10px;
-    }
-
-    .slider-btn.right {
-        right: -10px;
-    }
-
-    .slider-btn.d-none {
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    /* Horizontal slider */
-    .up-next-slider {
-        display: flex;
-        gap: 12px;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        padding: 6px 40px;
-        /* space for arrows */
-    }
-
-    .up-next-slider::-webkit-scrollbar {
-        display: none;
-    }
-
-    .up-next-slider {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    /* Song cards */
-    .up-next-slider .song-card {
-        flex: 0 0 140px;
-        background: #121212;
-        border-radius: 10px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: transform 0.15s, box-shadow 0.15s;
-        text-align: center;
-        padding-bottom: 6px;
-        padding-top: 6px;
-    }
-
-    .up-next-slider .song-card img {
-        width: 100%;
-        height: 100px;
-        object-fit: cover;
-    }
-
-    .up-next-slider .song-card p {
-        margin: 6px 8px;
-        font-size: 0.9rem;
-        color: #fff;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .up-next-slider .song-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-    }
-
-    .up-next-slider .song-card.active {
-        border: 2px solid #1db954;
-    }
-</style>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {

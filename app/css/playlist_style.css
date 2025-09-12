@@ -1,0 +1,123 @@
+#audioSearch::placeholder,
+#createPlaylistInput::placeholder {
+    color: #bdc3c7;
+    opacity: 1;
+}
+
+#audioSearch,
+#createPlaylistInput {
+    background-color: #192a56 !important;
+}
+
+#card-bg {
+    background-color: #273c75;
+    font-size: 14px;
+}
+
+.playlist-card {
+    background: #1e2a47;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.playlist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.playlist-card.active {
+    border: 2px solid #1db954;
+}
+
+.playlist-card h6 {
+    font-weight: 600;
+}
+
+.remove-btn {
+    border-radius: 50%;
+    padding: 4px 8px;
+}
+
+.audio-carousel-wrapper {
+    position: relative;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-btn {
+    left: 0;
+}
+
+.next-btn {
+    right: 0;
+}
+
+.carousel-btn:hover {
+    background: #1db954;
+}
+
+.audio-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.audio-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.audio-carousel.dragging {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.audio-card {
+    background: #1b1f38;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.audio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.audio-card h6 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.audio-card p {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.add-btn {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}

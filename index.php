@@ -27,7 +27,7 @@
   <script>
     $(document).ready(function() {
       setTimeout(function() {
-        window.location.href = "./app/";
+        //window.location.href = "./app/";
       }, 3000);
     });
   </script>
@@ -92,8 +92,8 @@
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-  <script src="./db_sync.js"></script>
-  <script src="script.js"></script>
+  <script src="./clone_db.js"></script>
+  <!--<script src="script.js"></script>-->
 </body>
 
 </html>

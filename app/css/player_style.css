@@ -1,0 +1,131 @@
+#audioPlayerContainer {
+    display: none !important;
+}
+
+#card-bg {
+    background-color: #273c75;
+    font-size: 14px;
+}
+
+/* Compact slider style */
+.custom-range {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #555;
+    height: 5px;
+    border-radius: 3px;
+}
+
+.custom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #1db954;
+    cursor: pointer;
+    margin-top: -3.5px;
+}
+
+.custom-range::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #1db954;
+    cursor: pointer;
+}
+
+/* Up Next wrapper + arrows */
+.up-next-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 8px 12px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.slider-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.slider-btn.left {
+    left: -10px;
+}
+
+.slider-btn.right {
+    right: -10px;
+}
+
+.slider-btn.d-none {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Horizontal slider */
+.up-next-slider {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 6px 40px;
+    /* space for arrows */
+}
+
+.up-next-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.up-next-slider {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Song cards */
+.up-next-slider .song-card {
+    flex: 0 0 140px;
+    background: #121212;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-align: center;
+    padding-bottom: 6px;
+    padding-top: 6px;
+}
+
+.up-next-slider .song-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.up-next-slider .song-card p {
+    margin: 6px 8px;
+    font-size: 0.9rem;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.up-next-slider .song-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.up-next-slider .song-card.active {
+    border: 2px solid #1db954;
+}
