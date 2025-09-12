@@ -1,176 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php require_once('header-panel.php'); ?>
+<style>
+    #submitQuestionnaire,
+    #btnSubmitForm {
+        background: linear-gradient(135deg, #0d6efd, #198754);
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Essence – Sign Up</title>
+    #submitQuestionnaire:hover,
+    #btnSubmitForm:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+    }
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    .alert-container {
+        margin-bottom: 1rem;
+    }
+</style>
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-        }
+<div class="section pt-5 text-center">
+    <div class="container-fluid">
+        <div class="card-3d-wrap mx-auto">
+            <div class="card-3d-wrapper">
+                <div class="card-front">
+                    <div class="center-wrap">
+                        <div class="section text-center">
+                            <h4 class="mb-4 pb-3 text-white">Sign Up</h4>
 
-        .wrapper {
-            position: relative;
-            min-height: 100vh;
-            background: linear-gradient(-45deg, #0d6efd, #198754, #6c757d, #000000);
-            background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+                            <!-- Alert container -->
+                            <div id="alertContainer" class="alert-container"></div>
 
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .particle {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 50%;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-
-        .app-header {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #fff;
-        }
-
-        .app-header h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            text-shadow: rgba(0, 0, 0, 0.5) 0px 5px 20px;
-        }
-
-        .signup-form {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 400px;
-            width: 100%;
-            color: #fff;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .form-control {
-            border-radius: 10px;
-            padding: 12px;
-        }
-
-        .btn-signup {
-            background: linear-gradient(135deg, #0d6efd, #198754);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            padding: 12px;
-            width: 100%;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .btn-signup:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .login-link {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .login-link a {
-            color: #0d6efd;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .login-link a:hover {
-            color: #198754;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="wrapper">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-
-        <div class="app-header">
-            <h1>Essence</h1>
-        </div>
-
-        <div class="signup-form">
-            <h3 class="text-center">Create Account</h3>
-            <form>
-                <div class="mb-3"><input type="text" class="form-control" placeholder="Full Name" required></div>
-                <div class="mb-3"><input type="email" class="form-control" placeholder="Email Address" required></div>
-                <div class="mb-3"><input type="password" class="form-control" placeholder="Password" required></div>
-                <div class="mb-3"><input type="password" class="form-control" placeholder="Confirm Password" required></div>
-                <button type="submit" class="btn-signup">Sign Up</button>
-            </form>
-            <div class="login-link">
-                <p>Already have an account? <a href="login.php">Log in</a></p>
+                            <form id="submitForm" autocomplete="off">
+                                <div class="form-group">
+                                    <input type="text" required name="logname" class="form-style" placeholder="Full Name" id="logname" autocomplete="off">
+                                    <i class="input-icon uil uil-user"></i>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <input type="email" required name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off">
+                                    <i class="input-icon uil uil-at"></i>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <input type="password" required name="logpass" class="form-style" placeholder="Password" id="logpass" autocomplete="off">
+                                    <i class="input-icon uil uil-lock-alt"></i>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <button type="submit" id="btnSubmitForm" class="action-btn mt-3"><i class="bi bi-sign-in"></i> Sign Up</button>
+                                </div>
+                                <div class="form-group mt-2 w-100 flex justify-start items-start text-start">
+                                    <p class="mb-0 mt-4 text-left"><a href="./" class="link">Have account? Login</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script>
-        const particles = document.querySelectorAll('.particle');
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('submitForm');
+        const alertContainer = document.getElementById('alertContainer');
 
-        function animateParticles() {
-            const centerX = window.innerWidth / 2,
-                centerY = window.innerHeight / 2;
-            particles.forEach(p => {
-                gsap.set(p, {
-                    x: centerX,
-                    y: centerY,
-                    scale: Math.random() + 0.5,
-                    opacity: Math.random() * 0.5 + 0.3
-                });
-                gsap.to(p, {
-                    x: () => centerX + (Math.random() - 0.5) * window.innerWidth * 0.8,
-                    y: () => centerY + (Math.random() - 0.5) * window.innerHeight * 0.8,
-                    duration: () => 10 + Math.random() * 15,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut",
-                    delay: Math.random() * 5
-                });
-            });
-        }
-        animateParticles();
-        window.addEventListener('resize', animateParticles);
-    </script>
-</body>
+        // Open the existing IndexedDB database "essence_life"
+        let db;
+        const request = indexedDB.open('essence_life');
 
-</html>
+        request.onsuccess = function(event) {
+            db = event.target.result;
+        };
+
+        request.onerror = function(event) {
+            console.error('IndexedDB error:', event.target.errorCode);
+        };
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('logname').value.trim();
+            const email = document.getElementById('logemail').value.trim();
+            const password = document.getElementById('logpass').value;
+
+            // Simple password hashing (base64 encoding)
+            const hashedPassword = btoa(password);
+
+            const user_id = 'user_' + Date.now();
+            const updated_at = new Date().toISOString().split('T')[0];
+
+            const transaction = db.transaction(['users'], 'readwrite');
+            const objectStore = transaction.objectStore('users');
+
+            const newUser = {
+                user_id,
+                name,
+                email,
+                phone: '',
+                password: hashedPassword,
+                updated_at
+            };
+
+            const requestAdd = objectStore.add(newUser);
+
+            requestAdd.onsuccess = function() {
+                // Clear any existing alert
+                alertContainer.innerHTML = '';
+
+                // Create Bootstrap alert div
+                const successAlert = document.createElement('div');
+                successAlert.className = 'alert alert-success alert-dismissible fade show';
+                successAlert.role = 'alert';
+                successAlert.innerHTML = `
+                Sign up successful!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+
+                alertContainer.appendChild(successAlert);
+
+                // Reset the form
+                form.reset();
+            };
+
+            requestAdd.onerror = function(e) {
+                alertContainer.innerHTML = '';
+                const errorAlert = document.createElement('div');
+                errorAlert.className = 'alert alert-danger alert-dismissible fade show';
+                errorAlert.role = 'alert';
+                errorAlert.innerHTML = `
+                Error: ${e.target.error}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+                alertContainer.appendChild(errorAlert);
+            };
+        });
+    });
+</script>
+
+<?php require_once('footer-panel.php'); ?>

@@ -61,13 +61,13 @@
                     });
                 }
                 if (!db.objectStoreNames.contains("contents")) {
-                    const store = db.createObjectStore("contents", {
+                    db.createObjectStore("contents", {
                         keyPath: "id",
                         autoIncrement: true
                     });
                 }
                 if (!db.objectStoreNames.contains("playlist_audios")) {
-                    const store = db.createObjectStore("playlist_audios", {
+                    db.createObjectStore("playlist_audios", {
                         keyPath: "id",
                         autoIncrement: true
                     });
@@ -93,7 +93,7 @@
 
         async function getAllPlaylists() {
             const db = await dbPromise;
-            return new Promise((resolve) => {
+            return new Promise(resolve => {
                 const tx = db.transaction("playlists", "readonly");
                 const store = tx.objectStore("playlists");
                 const req = store.getAll();
@@ -103,7 +103,7 @@
 
         async function deletePlaylist(id) {
             const db = await dbPromise;
-            return new Promise((resolve) => {
+            return new Promise(resolve => {
                 const tx = db.transaction("playlists", "readwrite");
                 const store = tx.objectStore("playlists");
                 store.delete(id);
@@ -139,10 +139,20 @@
             return new Promise(resolve => {
                 const tx = db.transaction("playlist_audios", "readwrite");
                 const store = tx.objectStore("playlist_audios");
-                store.add({
-                    playlist_id: playlistId,
-                    audio_id: audioId
-                });
+
+                // Prevent duplicates
+                const getAllReq = store.getAll();
+                getAllReq.onsuccess = e => {
+                    const all = e.target.result;
+                    const exists = all.find(pa => pa.playlist_id === playlistId && pa.audio_id === audioId);
+                    if (!exists) {
+                        store.add({
+                            playlist_id: playlistId,
+                            audio_id: audioId
+                        });
+                    }
+                };
+
                 tx.oncomplete = () => resolve();
             });
         }
@@ -166,13 +176,14 @@
                 col.className = "col-md-4 col-12";
                 const card = document.createElement("div");
                 card.className = "playlist-card shadow-lg p-3";
-                card.setAttribute("style", "border: 1px solid #40739e;");
+                card.style.border = "1px solid #40739e";
                 card.innerHTML = `
                 <div class="d-flex justify-content-between align-items-center">
                     <h6 class="mb-0">${pl.name}</h6>
                     <button class="btn btn-sm btn-danger remove-btn"><i class="bi bi-trash"></i></button>
                 </div>
-                <div class="playlist-audios mt-3"></div>`;
+                <div class="playlist-audios mt-3"></div>
+            `;
 
                 card.querySelector(".remove-btn").addEventListener("click", async e => {
                     e.stopPropagation();
@@ -207,7 +218,7 @@
                 div.querySelector("button").addEventListener("click", async e => {
                     e.stopPropagation();
                     await removeAudioFromPlaylist(pa.id);
-                    renderPlaylistAudios(playlistId, container);
+                    await renderPlaylistAudios(playlistId, container);
                 });
                 container.appendChild(div);
             });
@@ -229,50 +240,41 @@
                     <h6 class="mb-1 text-white text-start">${audio.content_name}</h6>
                     <p class="text-white-50 mb-2 text-start">${audio.content_type}</p>
                     <button class="btn btn-success btn-sm align-self-start add-btn"><i class="bi bi-plus-lg"></i></button>
-                </div>`;
+                </div>
+            `;
+
                 card.querySelector(".add-btn").addEventListener("click", async () => {
                     const playlistId = Number(localStorage.getItem("currentPlaylistId"));
                     if (!playlistId) return alert("Select a playlist first!");
                     await addAudioToPlaylist(playlistId, audio.id);
                     await renderPlaylists();
+
+                    // Refresh audios inside the selected playlist
+                    const activeCard = document.querySelector(".playlist-card.active");
+                    if (activeCard) {
+                        await renderPlaylistAudios(playlistId, activeCard.querySelector(".playlist-audios"));
+                    }
                 });
+
                 audioLibrary.appendChild(card);
             });
         }
 
         // ---------- Event Listeners ----------
-        // ---------------- Add Playlist ----------------
         createPlaylistForm.addEventListener("submit", async e => {
             e.preventDefault();
             const name = createPlaylistInput.value.trim();
             if (!name) return;
-
-            // Add playlist to IndexedDB
-            const db = await dbPromise;
-            const tx = db.transaction("playlists", "readwrite");
-            const store = tx.objectStore("playlists");
-            const request = store.add({
-                name
-            });
-
-            request.onsuccess = () => {
-                createPlaylistInput.value = '';
-                renderPlaylists(); // Re-render playlists after successful add
-            };
-
-            request.onerror = e => {
-                console.error("Failed to create playlist", e.target.error);
-                alert("Failed to create playlist");
-            };
+            await addPlaylist(name);
+            createPlaylistInput.value = '';
+            await renderPlaylists();
         });
-
 
         audioSearch.addEventListener("input", e => renderAudios(e.target.value));
 
-        // ---------- Carousel Navigation ----------
+        // Carousel navigation
         const prevBtn = document.querySelector(".prev-btn");
         const nextBtn = document.querySelector(".next-btn");
-
         prevBtn.addEventListener("click", () => audioLibrary.scrollBy({
             left: -250,
             behavior: 'smooth'

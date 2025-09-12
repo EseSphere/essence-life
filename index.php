@@ -27,7 +27,7 @@
   <script>
     $(document).ready(function() {
       setTimeout(function() {
-        //window.location.href = "./app/";
+        window.location.href = "./app/";
       }, 3000);
     });
   </script>

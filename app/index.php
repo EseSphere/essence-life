@@ -1,125 +1,148 @@
-<?php
-require_once('header.php');
-header('Location: ./question') ?>
+<?php require_once('header-panel.php'); ?>
+<style>
+  #submitQuestionnaire,
+  #btnSubmitForm {
+    background: linear-gradient(135deg, #0d6efd, #198754);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  }
 
-<!-- Hero Section -->
-<section class="hero text-center py-5" style="background:#17a2b8;">
-  <h1 class="text-white">Welcome to OfflineSite</h1>
-  <p class="text-white">Fully offline-capable, modern, and responsive website</p>
-  <a href="contact.php" class="btn btn-light btn-lg mt-3">Contact Us</a>
-</section>
+  #submitQuestionnaire:hover,
+  #btnSubmitForm:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+  }
 
-<!-- Features Section -->
-<section class="container my-5">
-  <div class="row text-center">
-    <div class="col-md-4 mb-4">
-      <div class="card shadow p-3">
-        <div class="card-body">
-          <i class="bi bi-cloud-arrow-down-fill fs-1 text-primary"></i>
-          <h5 class="card-title mt-2">Offline Access</h5>
-          <p class="card-text">Navigate pages even without internet connection.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card shadow p-3">
-        <div class="card-body">
-          <i class="bi bi-phone-fill fs-1 text-success"></i>
-          <h5 class="card-title mt-2">Responsive Design</h5>
-          <p class="card-text">Works on desktop, tablet, and mobile devices.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card shadow p-3">
-        <div class="card-body">
-          <i class="bi bi-hdd-stack-fill fs-1 text-danger"></i>
-          <h5 class="card-title mt-2">Dynamic Caching</h5>
-          <p class="card-text">Automatically caches pages for smooth offline navigation.</p>
+  .alert-container {
+    margin-bottom: 1rem;
+  }
+</style>
+
+<div class="section pt-5 text-center">
+  <div class="container-fluid">
+    <div class="card-3d-wrap mx-auto">
+      <div class="card-3d-wrapper">
+        <div class="card-front">
+          <div class="center-wrap">
+            <div class="section text-center">
+              <h4 class="mb-4 pb-3 text-white">Log In</h4>
+
+              <!-- Alert container -->
+              <div id="alertContainer" class="alert-container"></div>
+
+              <form id="submitForm" autocomplete="off">
+                <div class="form-group">
+                  <input type="email" required name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off">
+                  <i class="input-icon uil uil-at"></i>
+                </div>
+                <div class="form-group mt-2">
+                  <input type="password" required name="logpass" class="form-style" placeholder="Password" id="logpass" autocomplete="off">
+                  <i class="input-icon uil uil-lock-alt"></i>
+                </div>
+                <div class="form-group mt-2">
+                  <button type="submit" id="btnSubmitForm" class="action-btn mt-3"><i class="bi bi-sign-in"></i> Sign In</button>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <p class="mb-0 mt-4 text-center"><a href="./reset-password" class="link">Forgot password?</a></p>
+                  </div>
+                  <div class="col-6">
+                    <p class="mb-0 mt-4 text-center"><a href="./signup" class="link">Don't have account?</a></p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-
-<!-- Email Cards Section (Dynamic from IndexedDB) -->
-<section class="container my-5">
-  <h2 class="text-center mb-4">Saved Contacts</h2>
-  <div class="row text-center" id="emailCards">
-    <!-- Cards will be inserted here dynamically -->
-  </div>
-</section>
+</div>
 
 <script>
-  let db;
-  // Open IndexedDB
-  function openDB() {
-    return new Promise((resolve, reject) => {
-      const request = indexedDB.open('OfflineDB', 1);
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('submitForm');
+    const alertContainer = document.getElementById('alertContainer');
+    let db;
 
-      request.onupgradeneeded = function(event) {
-        db = event.target.result;
-        if (!db.objectStoreNames.contains('contacts')) {
-          db.createObjectStore('contacts', {
-            keyPath: 'id',
-            autoIncrement: true
-          });
-        }
-      };
+    const request = indexedDB.open('essence_life');
 
-      request.onsuccess = function(event) {
-        db = event.target.result;
-        resolve(db);
-      };
+    request.onsuccess = (event) => {
+      db = event.target.result;
+    };
 
-      request.onerror = function(event) {
-        reject(event.target.error);
-      };
-    });
-  }
+    request.onerror = (event) => {
+      showAlert('Database error: ' + event.target.errorCode, 'danger');
+    };
 
-  // Load all contacts and create cards
-  function loadEmailCards() {
-    const transaction = db.transaction('contacts', 'readonly');
-    const store = transaction.objectStore('contacts');
-    const request = store.openCursor();
-    const container = document.getElementById('emailCards');
-    container.innerHTML = '';
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
 
-    request.onsuccess = function(event) {
-      const cursor = event.target.result;
-      if (cursor) {
-        const contact = cursor.value;
-        const card = `
-            <div class="col-md-4 mb-4">
-                <a href="view.php?email=${contact.email}" class="text-decoration-none text-dark">
-                    <div class="card shadow p-3">
-                        <div class="card-body">
-                            <i class="bi bi-envelope-fill fs-1 text-primary"></i>
-                            <h5 class="card-title mt-2">${contact.name}</h5>
-                            <p class="card-text">${contact.email}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>`;
-        container.insertAdjacentHTML('beforeend', card);
-        cursor.continue();
+      const email = document.getElementById('logemail').value.trim();
+      const password = document.getElementById('logpass').value.trim();
+      const hashedPassword = btoa(password);
+
+      if (!db) {
+        showAlert('Database not ready. Please try again.', 'danger');
+        return;
       }
-    };
 
-    request.onerror = function(event) {
-      console.error('Error reading contacts:', event.target.error);
-    };
-  }
+      const transaction = db.transaction(['users'], 'readonly');
+      const objectStore = transaction.objectStore('users');
 
-  document.addEventListener('DOMContentLoaded', async () => {
-    try {
-      await openDB();
-      loadEmailCards();
-    } catch (err) {
-      console.error('Failed to load emails:', err);
+      // Check if email index exists
+      if (objectStore.indexNames.contains('email')) {
+        const index = objectStore.index('email');
+        const getRequest = index.get(email);
+
+        getRequest.onsuccess = () => {
+          const user = getRequest.result;
+          if (user && user.password === hashedPassword) {
+            window.location.href = 'question.php';
+          } else {
+            showAlert('Email or password is incorrect.', 'danger');
+          }
+        };
+
+        getRequest.onerror = () => {
+          showAlert('Error reading user data.', 'danger');
+        };
+      } else {
+        // Fallback: scan all users
+        let found = false;
+        const cursorRequest = objectStore.openCursor();
+        cursorRequest.onsuccess = (event) => {
+          const cursor = event.target.result;
+          if (cursor) {
+            const user = cursor.value;
+            if (user.email === email && user.password === hashedPassword) {
+              found = true;
+              window.location.href = 'question.php';
+              return;
+            }
+            cursor.continue();
+          } else {
+            if (!found) showAlert('Email or password is incorrect.', 'danger');
+          }
+        };
+        cursorRequest.onerror = () => {
+          showAlert('Error scanning users.', 'danger');
+        };
+      }
+    });
+
+    function showAlert(message, type = 'success') {
+      alertContainer.innerHTML = '';
+      const alertDiv = document.createElement('div');
+      alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+      alertDiv.role = 'alert';
+      alertDiv.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+      alertContainer.appendChild(alertDiv);
     }
   });
 </script>
 
-<?php require_once('footer.php'); ?>
+<?php require_once('footer-panel.php'); ?>

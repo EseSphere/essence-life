@@ -1,25 +1,33 @@
+/* Placeholder text color */
 #audioSearch::placeholder,
 #createPlaylistInput::placeholder {
     color: #bdc3c7;
     opacity: 1;
 }
 
+/* Input fields background */
 #audioSearch,
 #createPlaylistInput {
     background-color: #192a56 !important;
+    color: #fff;
+    border: none;
 }
 
+/* Card background */
 #card-bg {
     background-color: #273c75;
     font-size: 14px;
+    border-radius: 15px;
 }
 
+/* Playlist cards */
 .playlist-card {
     background: #1e2a47;
     border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    padding: 15px;
 }
 
 .playlist-card:hover {
@@ -33,6 +41,7 @@
 
 .playlist-card h6 {
     font-weight: 600;
+    margin-bottom: 0;
 }
 
 .remove-btn {
@@ -40,10 +49,12 @@
     padding: 4px 8px;
 }
 
+/* Audio carousel wrapper */
 .audio-carousel-wrapper {
     position: relative;
 }
 
+/* Carousel buttons */
 .carousel-btn {
     position: absolute;
     top: 50%;
@@ -59,6 +70,11 @@
     justify-content: center;
     cursor: pointer;
     z-index: 10;
+    transition: background 0.3s;
+}
+
+.carousel-btn:hover {
+    background: #1db954;
 }
 
 .prev-btn {
@@ -69,10 +85,7 @@
     right: 0;
 }
 
-.carousel-btn:hover {
-    background: #1db954;
-}
-
+/* Audio carousel */
 .audio-carousel {
     display: flex;
     overflow-x: auto;
@@ -90,11 +103,13 @@
     cursor: -webkit-grabbing;
 }
 
+/* Audio cards */
 .audio-card {
     background: #1b1f38;
     flex-shrink: 0;
     scroll-snap-align: start;
     transition: transform 0.3s, box-shadow 0.3s;
+    padding: 10px;
 }
 
 .audio-card:hover {
@@ -105,13 +120,16 @@
 .audio-card h6 {
     font-size: 1rem;
     font-weight: 600;
+    margin-bottom: 2px;
 }
 
 .audio-card p {
     font-size: 0.85rem;
     margin: 0;
+    color: #ccc;
 }
 
+/* Add button */
 .add-btn {
     border-radius: 50%;
     width: 32px;
@@ -120,4 +138,22 @@
     align-items: center;
     justify-content: center;
     padding: 0;
+    transition: background 0.3s;
+}
+
+.add-btn:hover {
+    background-color: #1db954;
+    color: #fff;
+}
+
+/* Playlist audios inside playlist card */
+.playlist-audios>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    background: #2c3e50;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
 }

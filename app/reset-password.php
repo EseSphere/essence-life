@@ -25,25 +25,21 @@
                 <div class="card-front">
                     <div class="center-wrap">
                         <div class="section text-center">
-                            <h4 class="mb-4 pb-3 text-white">New Password</h4>
+                            <h4 class="mb-4 pb-3 text-white">Reset Password</h4>
 
                             <!-- Alert container -->
                             <div id="alertContainer" class="alert-container"></div>
 
                             <form id="submitForm" autocomplete="off">
-                                <div class="form-group mt-2">
-                                    <input type="password" required name="logpass" class="form-style" placeholder="Password" id="logpass" autocomplete="off">
-                                    <i class="input-icon uil uil-lock-alt"></i>
+                                <div class="form-group">
+                                    <input type="email" required name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off">
+                                    <i class="input-icon uil uil-at"></i>
                                 </div>
                                 <div class="form-group mt-2">
-                                    <input type="password" required name="logcpass" class="form-style" placeholder="Confirm Password" id="logcpass" autocomplete="off">
-                                    <i class="input-icon uil uil-lock-alt"></i>
-                                </div>
-                                <div class="form-group mt-2">
-                                    <button type="submit" id="btnSubmitForm" class="action-btn mt-3"><i class="bi bi-sign-in"></i> Update Password</button>
+                                    <button type="submit" id="btnSubmitForm" class="action-btn mt-3"><i class="bi bi-sign-in"></i> Continue</button>
                                 </div>
                                 <div class="form-group mt-2 w-100 flex justify-start items-start text-start">
-                                    <p class="mb-0 mt-4 text-left"><a href="./" class="link">Have account? Login</a></p>
+                                    <p class="mb-0 mt-4 text-left"><a href="./" class="link">Remember password? Login</a></p>
                                 </div>
                             </form>
                         </div>
@@ -60,13 +56,7 @@
         const alertContainer = document.getElementById('alertContainer');
         let db;
 
-        // Get email from sessionStorage
-        const email = sessionStorage.getItem('resetEmail');
-        if (!email) {
-            showAlert('No email found. Please start password reset again.', 'danger');
-            return;
-        }
-
+        // Open existing IndexedDB
         const request = indexedDB.open('essence_life');
 
         request.onsuccess = function(event) {
@@ -79,40 +69,17 @@
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            const password = document.getElementById('logpass').value.trim();
-            const confirmPassword = document.getElementById('logcpass').value.trim();
-
-            if (password !== confirmPassword) {
-                showAlert('Passwords do not match.', 'danger');
-                return;
-            }
+            const email = document.getElementById('logemail').value.trim();
 
             if (!db) {
                 showAlert('Database not ready. Please try again.', 'danger');
                 return;
             }
 
-            const transaction = db.transaction(['users'], 'readwrite');
+            const transaction = db.transaction(['users'], 'readonly');
             const objectStore = transaction.objectStore('users');
 
-            // Use index if exists
-            const updatePassword = (user) => {
-                user.password = btoa(password); // encode password
-                const updateRequest = objectStore.put(user);
-
-                updateRequest.onsuccess = () => {
-                    showAlert('Password updated successfully!', 'success');
-                    sessionStorage.removeItem('resetEmail');
-                    setTimeout(() => {
-                        window.location.href = './';
-                    }, 2000); // redirect to login after 2 seconds
-                };
-
-                updateRequest.onerror = () => {
-                    showAlert('Failed to update password.', 'danger');
-                };
-            };
-
+            // Use email index if exists
             if (objectStore.indexNames.contains('email')) {
                 const index = objectStore.index('email');
                 const getRequest = index.get(email);
@@ -120,7 +87,9 @@
                 getRequest.onsuccess = function() {
                     const user = getRequest.result;
                     if (user) {
-                        updatePassword(user);
+                        // Save email in sessionStorage for new-password page
+                        sessionStorage.setItem('resetEmail', email);
+                        window.location.href = 'new-password.php';
                     } else {
                         showAlert('Email not found.', 'danger');
                     }
@@ -130,7 +99,7 @@
                     showAlert('Error accessing user data.', 'danger');
                 };
             } else {
-                // fallback: scan all users
+                // Fallback: scan all users
                 const cursorRequest = objectStore.openCursor();
                 let found = false;
 
@@ -140,7 +109,8 @@
                         const user = cursor.value;
                         if (user.email === email) {
                             found = true;
-                            updatePassword(user);
+                            sessionStorage.setItem('resetEmail', email);
+                            window.location.href = 'new-password.php';
                             return;
                         }
                         cursor.continue();

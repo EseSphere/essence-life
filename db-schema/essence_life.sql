@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2025 at 04:58 PM
+-- Generation Time: Sep 12, 2025 at 01:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -84,30 +84,25 @@ INSERT INTO `contents` (`id`, `content_name`, `content_type`, `content_url`, `im
 --
 
 CREATE TABLE `playlists` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int(11) NOT NULL,
+  `user_id` varchar(500) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `playlists`
---
-
-INSERT INTO `playlists` (`id`, `user_id`, `name`, `created_at`) VALUES
-(1, 1, 'My Play', '2025-09-11 14:19:43');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `playlist_audios`
+-- Table structure for table `playlist_audio`
 --
 
-CREATE TABLE `playlist_audios` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `playlist_id` int(10) UNSIGNED NOT NULL,
-  `audio_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE `playlist_audio` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(500) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `audio` varchar(500) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -117,20 +112,22 @@ CREATE TABLE `playlist_audios` (
 --
 
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int(11) NOT NULL,
+  `user_id` varchar(500) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `email` varchar(500) NOT NULL,
+  `phone` varchar(500) NOT NULL,
+  `password` varchar(500) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `created_at`) VALUES
-(1, 'samson', '$2y$10$abcdefghijk1234567890abcdefg1234567890abcdefg1234567890', '2025-09-11 14:14:10'),
-(2, 'alice', '$2y$10$mnopqrstuv1234567890mnopqrstuv1234567890mnopqrstuv12345678', '2025-09-11 14:14:10'),
-(3, 'bob', '$2y$10$uvwxyzabcd1234567890uvwxyzabcd1234567890uvwxyzabcd12345678', '2025-09-11 14:14:10');
+INSERT INTO `users` (`id`, `user_id`, `name`, `email`, `phone`, `password`, `created_at`, `updated_at`) VALUES
+(1, 'US1001', 'Samson', 'samson@yahoo.com', '0748847474', 'a8f5dea10f7504a0305998adef3a9c8c2f769c475ad5a3baf23acf9be81cea33', '2025-09-12 11:07:59', '0000-00-00');
 
 --
 -- Indexes for dumped tables
@@ -149,19 +146,16 @@ ALTER TABLE `playlists`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `playlist_audios`
+-- Indexes for table `playlist_audio`
 --
-ALTER TABLE `playlist_audios`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `playlist_id` (`playlist_id`),
-  ADD KEY `audio_id` (`audio_id`);
+ALTER TABLE `playlist_audio`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -177,30 +171,19 @@ ALTER TABLE `contents`
 -- AUTO_INCREMENT for table `playlists`
 --
 ALTER TABLE `playlists`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `playlist_audios`
+-- AUTO_INCREMENT for table `playlist_audio`
 --
-ALTER TABLE `playlist_audios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `playlist_audio`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `playlist_audios`
---
-ALTER TABLE `playlist_audios`
-  ADD CONSTRAINT `playlist_audios_ibfk_1` FOREIGN KEY (`playlist_id`) REFERENCES `playlists` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `playlist_audios_ibfk_2` FOREIGN KEY (`audio_id`) REFERENCES `contents` (`id`) ON DELETE CASCADE;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
